@@ -21,13 +21,13 @@
                                 "name": "OPPO A11系列",
                                 "type": "folder",
                                 "desc": "OPPO A11 系列资源",
-                                "readme":"data/rm/pchm10.md",
+                                "readme": "data/rm/pchm10.md",
                                 "children": [
                                     {
                                         "name": "线刷包",
                                         "type": "folder",
                                         "desc": "",
-                                        "readme": "data/rm/xsb.md",
+                                        "readme": "data/rm/file/xsb.md",
                                         "children": [
                                             {
                                                 "name": "大陆国行",
@@ -64,6 +64,28 @@
                                                 "desc": "",
                                                 "readme": "data/rm/file/chi.md",
                                                 "children": []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "全分区回读",
+                                        "type": "folder",
+                                        "desc": "",
+                                        "readme": "data/rm/file/OPPO/PCHM10/qfq1.md",
+                                        "children": [
+                                            {
+                                                "name": "A11全分区回读",
+                                                "type": "file",
+                                                "desc": "",
+                                                "readme": "data/rm/file/OPPO/PCHM10/qfq.md",
+                                                "url": "https://onedrive.live.com/personal/6ed1c23368a7eb3a/_layouts/15/download.aspx?SourceUrl=%2Fpersonal%2F6ed1c23368a7eb3a%2FDocuments%2F%E7%8E%A9%E6%9C%BA%E8%B5%84%E6%BA%90%E7%AB%99%2F%E5%85%A8%E5%88%86%E5%8C%BA%E5%9B%9E%E8%AF%BB%2FPCHM10%5F11%5FF%2E12%2E7z"
+                                            },
+                                            {
+                                                "name": "A11x全分区回读",
+                                                "type": "file",
+                                                "desc": "",
+                                                "readme": "data/rm/file/OPPO/PCHM10/qfq.md",
+                                                "url": "https://onedrive.live.com/personal/6ed1c23368a7eb3a/_layouts/15/download.aspx?SourceUrl=%2Fpersonal%2F6ed1c23368a7eb3a%2FDocuments%2F%E7%8E%A9%E6%9C%BA%E8%B5%84%E6%BA%90%E7%AB%99%2F%E5%85%A8%E5%88%86%E5%8C%BA%E5%9B%9E%E8%AF%BB%2FA11X%E5%85%A8%E5%AD%97%E5%BA%93%2Ezip"
                                             }
                                         ]
                                     },

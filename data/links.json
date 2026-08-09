@@ -8,8 +8,16 @@
 
 {
 "name":"Lineage OS",
-"icon":"🆕",
+"icon":"🔥",
 "desc":"类原生链接下载",
 "url":"https://lineageos.org/"
+},
+
+{
+"name":"雪中明月资源站",
+"icon":"🔥",
+"desc":"安卓玩机资源",
+"url":"https://pan.雪中明月.top/"
 }
+
 ]

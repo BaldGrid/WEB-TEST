@@ -4,16 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>我也不知道这是啥</title>
+    <title>BaldGrid·资源中心</title>
     <link rel="stylesheet" href="style.css">
+    <!-- marked 用于 README 渲染 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 
 <body>
 
-    <!-- ================================================ -->
-    <!-- ⭐ 只加这 2 个背景层！其他内容完全原封不动！     -->
-    <!--    用 z-index: -1 让它自动垫底，不影响任何布局    -->
-    <!-- ================================================ -->
+    <!-- 背景光晕（纯装饰） -->
     <div class="bg-aurora" aria-hidden="true">
         <div class="aurora aurora-1"></div>
         <div class="aurora aurora-2"></div>
@@ -21,34 +20,37 @@
     </div>
     <div class="bg-noise" aria-hidden="true"></div>
 
-
-    <!-- 👇👇👇 以下你原来的 HTML 一字不改 👇👇👇 -->
+    <!-- Header -->
     <header>
-        <h1>我也不知道这是啥</h1>
-        <p>🐊🐊🐊混乱将随后而至🐊🐊🐊</p>
+        <h1>BaldGrid·<span class="hl">资源中心</span></h1>
+        <p>Android · 刷机 · 工具 · 教程</p>
     </header>
 
-    <div class="notice">📢 公告：没有公告</div>
+    <!-- 公告 -->
+    <div class="notice">📢 公告：如果无法播放音乐请尝试关闭音乐或链接海外节点后刷新网页！</div>
 
+    <!-- 搜索 -->
     <input id="search" placeholder="🔍 搜索资源...">
 
-    <div class="tabs">
-        <button class="active" onclick="showTab('resource',this)">资源列表</button>
-        <button onclick="showTab('friend',this)">友情链接</button>
-        <button onclick="showTab('author',this)">联系作者</button>
-        <button onclick="showTab('setting',this)">设置</button>
+    <!-- Tabs -->
+    <div class="tabs" id="tabsContainer">
+        <span class="tab-indicator" id="tabIndicator"></span>
+        <button class="active" data-tab="resource">资源列表</button>
+        <button data-tab="friend">友情链接</button>
+        <button data-tab="author">联系作者</button>
+        <button data-tab="setting">设置</button>
     </div>
 
     <!-- 资源区域 -->
-    <div id="resource">
-        <div class="box" id="breadcrumb">🏠 首页</div>
+    <div id="resource" class="page-show">
+        <div id="breadcrumb">🏠 首页</div>
         <main id="list"></main>
-        <div class="box" id="readme">暂无介绍</div>
+        <div id="readme">暂无介绍</div>
     </div>
 
     <!-- 下载页面 -->
-    <div id="download" class="hide download-page">
-        <div class="card download-window">
+    <div id="download" class="hide">
+        <div class="download-window">
             <div id="downloadIcon" class="download-icon">🌐</div>
             <h2 id="downloadName">文件下载</h2>
             <div class="download-buttons">
@@ -65,43 +67,140 @@
 
     <!-- 友情链接 -->
     <div id="friend" class="hide">
-        <h2 class="title">友情链接</h2>
         <main id="links"></main>
     </div>
 
-    <!-- 作者 -->
+    <!-- ===== 联系作者（动态加载） ===== -->
     <div id="author" class="hide">
-        <div class="card">
-            <h2>关于作者</h2>
-            <p>当前维护者：<strong>guiwowxx</strong></p>
-            <p>原作者：BaldGrid</p>
-        </div>
+        <div id="authorList" class="author-grid"></div>
     </div>
 
-    <!-- 设置（已移除主题模式） -->
+    <!-- 设置 -->
     <div id="setting" class="hide">
         <div class="card">
             <h2>网站设置</h2>
 
+            <p>🎨 主题模式</p>
+            <label>
+                <span class="lbl">切换主题</span>
+                <select id="themeSelect">
+                    <option value="light">☀️ 浅色</option>
+                    <option value="dark">🌙 深色</option>
+                </select>
+            </label>
+
             <p>🪟 液态玻璃效果</p>
             <label>
-                <input type="checkbox" id="glassSwitch" checked> 开启液态玻璃
+                <span class="lbl">开启液态玻璃</span>
+                <input type="checkbox" id="glassSwitch" checked>
             </label>
 
             <p>✨ 页面动画</p>
             <label>
-                <input type="checkbox" id="animationSwitch" checked> 开启动画
+                <span class="lbl">开启动画</span>
+                <input type="checkbox" id="animationSwitch" checked>
             </label>
 
-            <p>🎵 播放音乐</p>
-            <label>
-                <input type="checkbox" id="musicSwitch"> 开启音乐
-            </label>
+            <p>🎵 音乐播放器</p>
+            <button id="musicSwitch" class="music-open-btn">
+                <span class="music-open-icon">♪</span>
+                <span>打开音乐播放器</span>
+            </button>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="script.js?v=4"></script>
+    <!-- ===== 音乐播放器（精简版，无歌词） ===== -->
+    <div class="mp-mask" id="mpMask">
+        <div class="mp-player">
+            <!-- 顶部栏 -->
+            <div class="mp-header">
+                <div class="mp-leds">
+                    <span class="mp-led mp-led-red"></span>
+                    <span class="mp-led mp-led-yellow"></span>
+                    <span class="mp-led mp-led-green"></span>
+                </div>
+                <span class="mp-title">Music</span>
+                <button class="mp-close" id="mpClose" title="关闭">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+
+            <!-- 封面 -->
+            <div class="mp-cover-area">
+                <div class="mp-cover-inner" id="mpCover">
+                    <div class="mp-cover-placeholder">
+                        <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 歌曲信息 -->
+            <div class="mp-info">
+                <div class="mp-name" id="mpName">未选择歌曲</div>
+                <div class="mp-artist" id="mpArtist">选择音乐以开始播放</div>
+            </div>
+
+            <!-- 进度条 -->
+            <div class="mp-progress-row">
+                <span class="mp-time" id="mpCur">0:00</span>
+                <div class="mp-bar" id="mpBar">
+                    <div class="mp-bar-fill" id="mpFill"></div>
+                    <div class="mp-bar-thumb" id="mpThumb"></div>
+                </div>
+                <span class="mp-time" id="mpDur">0:00</span>
+            </div>
+
+            <!-- 控制按钮 -->
+            <div class="mp-controls">
+                <button class="mp-ctrl-btn" id="mpPrev" title="上一首">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+                </button>
+                <button class="mp-ctrl-btn mp-ctrl-btn-play" id="mpPlay" title="播放/暂停">
+                    <svg id="mpPlayIcon" viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+                <button class="mp-ctrl-btn" id="mpNext" title="下一首">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 18 14.5 12 6 6v12zM16 6h2v12h-2z"/></svg>
+                </button>
+            </div>
+
+            <!-- 音量 + 模式 -->
+            <div class="mp-sub-row">
+                <div class="mp-panel">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z"/></svg>
+                    <input type="range" id="mpVol" min="0" max="100" value="75" class="mp-slider">
+                    <span class="mp-vol-val" id="mpVolVal">75</span>
+                </div>
+                <div class="mp-panel mp-mode-seg" id="mpModeSeg">
+                    <div class="mp-mode-ind" id="mpModeInd"></div>
+                    <button class="mp-mode-item active" data-mode="0">🔁 顺序</button>
+                    <button class="mp-mode-item" data-mode="1">🔂 单曲</button>
+                    <button class="mp-mode-item" data-mode="2">🔀 随机</button>
+                </div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="mp-actions">
+                <button class="mp-action-btn" id="mpLoadBtn">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>从 Music 目录加载</span>
+                </button>
+                <label class="mp-action-btn">
+                    <input type="file" id="mpFile" accept="audio/*" multiple hidden>
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+                    <span>添加本地音乐</span>
+                </label>
+            </div>
+
+            <div class="mp-status" id="mpStatus"></div>
+
+            <div class="mp-playlist" id="mpList">
+                <div class="mp-empty">🎵 暂无音乐，点击上方按钮添加或从 Music 目录加载</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主脚本 -->
+    <script src="script.js"></script>
 </body>
 
 </html>

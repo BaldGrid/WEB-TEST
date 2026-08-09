@@ -1,0 +1,29 @@
+[
+    {
+        "name": "白叶 / guiwowoxx",
+        "role": "作者 & 维护者",
+        "icon": "🤓",
+        "desc": "关注白叶喵，关注白叶谢谢喵",
+        "links": [
+            { "label": "酷安", "url": "https://www.coolapk.com/u/35803319" },
+            { "label": "B站", "url": "https://space.bilibili.com/1009842165" },
+            { "label": "GitHub", "url": "https://github.com/BaldGrid" }
+        ]
+    },
+    {
+        "name": "赞助本喵",
+        "role": "喜欢就请我喝杯咖啡吧 ☕",
+        "icon": "❤️",
+        "image": "assets/wechat.png",
+        "desc": "感谢您的赞助喵",
+        "links": []
+    },
+    {
+        "name": "电报账号",
+        "role": "欢迎加本喵好友喵",
+        "icon": "✈️",
+        "image": "assets/tg.jpg",
+        "desc": "中国人能飞~",
+        "links": []
+    }
+]

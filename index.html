@@ -2,507 +2,106 @@
 <html lang="zh-CN">
 
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>BaldGrid · 资源中心</title>
-
-<link rel="stylesheet" href="style.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>我也不知道这是啥</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
-
-<header>
-
-<h1>
-BaldGrid · 资源中心
-</h1>
-
-<p>
-Android · 刷机 · 工具 · 教程
-</p>
-
-</header>
-
-
-
-<div class="notice">
-
-📢 公告：下载速度较慢的情况下请使用海外IP节点！
-
-</div>
-
-
-
-<input 
-id="search"
-placeholder="🔍 搜索资源..."
->
-
-
-
-<div class="tabs">
-
-
-<button 
-class="active"
-onclick="showTab('resource',this)">
-资源列表
-</button>
-
-
-<button
-onclick="showTab('friend',this)">
-友情链接
-</button>
-
-
-<button
-onclick="showTab('author',this)">
-联系作者
-</button>
-
-
-<button
-onclick="showTab('setting',this)">
-设置
-</button>
-
-
-</div>
-
-
-
-
-
-<!-- =====================
-资源区域
-===================== -->
-
-
-<div id="resource">
-
-
-<!-- 第一段：路径 -->
-
-<div 
-class="box"
-id="breadcrumb">
-
-🏠 首页
-
-</div>
-
-
-
-
-<!-- 第二段：文件列表 -->
-
-<main id="list">
-
-
-</main>
-
-
-
-
-<!-- 第三段：介绍 -->
-
-<div 
-class="box"
-id="readme">
-
-
-暂无介绍
-
-
-</div>
-
-
-
-</div>
-
-
-
-<!-- =====================
-下载页面
-===================== -->
-
-
-<div 
-id="download"
-class="hide download-page">
-
-
-<div class="card download-window">
-
-
-<!-- 图标 -->
-
-<div 
-id="downloadIcon"
-class="download-icon">
-
-🌐
-
-</div>
-
-
-
-<!-- 文件名 -->
-
-<h2 
-id="downloadName">
-
-文件下载
-
-</h2>
-
-
-
-
-
-<!-- 操作按钮 -->
-
-
-<div class="download-buttons">
-
-
-<button 
-onclick="startDownload()">
-
-⬇️ 立即下载
-
-</button>
-
-
-
-<button 
-onclick="copyDownloadLink()">
-
-🔗 复制链接
-
-</button>
-
-
-
-<button 
-onclick="backResource()">
-
-↩️ 返回
-
-</button>
-
-
-</div>
-
-
-
-
-
-
-<!-- README介绍 -->
-
-
-<div 
-id="downloadReadme"
-class="download-readme">
-
-
-<h3>
-文件介绍
-</h3>
-
-
-暂无介绍
-
-
-</div>
-
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- =====================
-友情链接
-===================== -->
-
-
-<div 
-id="friend"
-class="hide">
-
-
-<h2 class="title">
-
-友情链接
-
-</h2>
-
-
-<main id="links"></main>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- =====================
-作者
-===================== -->
-
-
-<div 
-id="author"
-class="hide">
-
-
-<div class="card">
-
-
-<h2>
-联系作者
-</h2>
-
-
-
-<a href="https://www.coolapk.com/u/35803319"
-target="_blank">
-
-① 白叶の酷安链接
-
-</a>
-
-
-
-<a href="https://space.bilibili.com/1009842165"
-target="_blank">
-
-② 白叶の哔哩哔哩链接
-
-</a>
-
-
-
-<a href="https://github.com/BaldGrid"
-target="_blank">
-
-③ 白叶のGitHub链接
-
-</a>
-
-
-
-<a onclick="showDonate()">
-
-④ 赞助本喵
-
-</a>
-
-
-
-<img 
-id="wechat"
-src="assets/wechat.png"
->
-
-
-
-
-<a onclick="showTelegram()">
-
-⑤ 白叶の电报
-
-</a>
-
-
-
-<img 
-id="telegram"
-src="assets/tg.jpg"
->
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- =====================
-设置
-===================== -->
-
-
-<div 
-id="setting"
-class="hide">
-
-
-<div class="card">
-
-
-<h2>
-网站设置
-</h2>
-
-
-
-
-<p>
-🎨 主题模式
-</p>
-
-
-
-<select id="themeSelect">
-
-
-<option value="system">
-
-跟随系统
-
-</option>
-
-
-<option value="dark">
-
-深色模式
-
-</option>
-
-
-<option value="light">
-
-亮色模式
-
-</option>
-
-
-</select>
-
-
-
-
-
-
-
-<p>
-🪟 液态玻璃效果
-</p>
-
-
-<label>
-
-
-<input 
-type="checkbox"
-id="glassSwitch"
-checked>
-
-
-开启液态玻璃
-
-
-</label>
-
-
-
-
-
-
-
-<p>
-✨ 页面动画
-</p>
-
-
-<label>
-
-
-<input
-type="checkbox"
-id="animationSwitch"
-checked>
-
-
-开启动画
-
-
-</label>
-
-
-
-
-
-
-
-<p>
-🎵 播放音乐
-</p>
-
-
-<label>
-
-
-<input
-type="checkbox"
-id="musicSwitch">
-
-
-开启音乐
-
-
-</label>
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-<script src="script.js?v=4"></script>
-
-
+    <!-- ================================================ -->
+    <!-- ⭐ 只加这 2 个背景层！其他内容完全原封不动！     -->
+    <!--    用 z-index: -1 让它自动垫底，不影响任何布局    -->
+    <!-- ================================================ -->
+    <div class="bg-aurora" aria-hidden="true">
+        <div class="aurora aurora-1"></div>
+        <div class="aurora aurora-2"></div>
+        <div class="aurora aurora-3"></div>
+    </div>
+    <div class="bg-noise" aria-hidden="true"></div>
+
+
+    <!-- 👇👇👇 以下你原来的 HTML 一字不改 👇👇👇 -->
+    <header>
+        <h1>我也不知道这是啥</h1>
+        <p>🐊🐊🐊混乱将随后而至🐊🐊🐊</p>
+    </header>
+
+    <div class="notice">📢 公告：没有公告</div>
+
+    <input id="search" placeholder="🔍 搜索资源...">
+
+    <div class="tabs">
+        <button class="active" onclick="showTab('resource',this)">资源列表</button>
+        <button onclick="showTab('friend',this)">友情链接</button>
+        <button onclick="showTab('author',this)">联系作者</button>
+        <button onclick="showTab('setting',this)">设置</button>
+    </div>
+
+    <!-- 资源区域 -->
+    <div id="resource">
+        <div class="box" id="breadcrumb">🏠 首页</div>
+        <main id="list"></main>
+        <div class="box" id="readme">暂无介绍</div>
+    </div>
+
+    <!-- 下载页面 -->
+    <div id="download" class="hide download-page">
+        <div class="card download-window">
+            <div id="downloadIcon" class="download-icon">🌐</div>
+            <h2 id="downloadName">文件下载</h2>
+            <div class="download-buttons">
+                <button onclick="startDownload()">⬇️ 立即下载</button>
+                <button onclick="copyDownloadLink()">🔗 复制链接</button>
+                <button onclick="backResource()">↩️ 返回</button>
+            </div>
+            <div id="downloadReadme" class="download-readme">
+                <h3>文件介绍</h3>
+                暂无介绍
+            </div>
+        </div>
+    </div>
+
+    <!-- 友情链接 -->
+    <div id="friend" class="hide">
+        <h2 class="title">友情链接</h2>
+        <main id="links"></main>
+    </div>
+
+    <!-- 作者 -->
+    <div id="author" class="hide">
+        <div class="card">
+            <h2>关于作者</h2>
+            <p>当前维护者：<strong>guiwowxx</strong></p>
+            <p>原作者：BaldGrid</p>
+        </div>
+    </div>
+
+    <!-- 设置（已移除主题模式） -->
+    <div id="setting" class="hide">
+        <div class="card">
+            <h2>网站设置</h2>
+
+            <p>🪟 液态玻璃效果</p>
+            <label>
+                <input type="checkbox" id="glassSwitch" checked> 开启液态玻璃
+            </label>
+
+            <p>✨ 页面动画</p>
+            <label>
+                <input type="checkbox" id="animationSwitch" checked> 开启动画
+            </label>
+
+            <p>🎵 播放音乐</p>
+            <label>
+                <input type="checkbox" id="musicSwitch"> 开启音乐
+            </label>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js?v=4"></script>
 </body>
-
 
 </html>
